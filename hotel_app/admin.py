@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.core.mail import send_mail
 
 from accounts.models import CustomUser
-from hotel_app.models import Hotel, Room, Reservation
+from hotel_app.models import Hotel, Room, Reservation, ReservationAuditLog
 
 admin.site.register(CustomUser)
 admin.site.register(Hotel)
@@ -69,3 +69,8 @@ class ReservationAdmin(admin.ModelAdmin):
             recipient_list=[user.email],
             fail_silently=False
         )
+
+
+@admin.register(ReservationAuditLog)
+class ReservationAuditLogAdmin(admin.ModelAdmin):
+    list_display = ('reservation', 'user', 'action', 'timestamp')
